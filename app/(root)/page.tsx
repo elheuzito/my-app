@@ -15,7 +15,7 @@ export default function Home() {
           Conecte-se e aprenda conosco aqui hospedamos e divulgamos seus eventos acadêmicos em poucos cliques.
          </p>
           <Button size="lg" asChild className="button w-full sm:w-fit">
-          <Link href="#events"> Explore </Link>
+          <Link href="#events"> Descubra </Link>
           </Button>
           </div>
           <div className="flex justify-center items-center">
@@ -30,7 +30,7 @@ export default function Home() {
         </div>
       </section>
       <section id="events" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
-        <h2 className="h2-bold">Compartilhe Com Milhares de Pessoas</h2>
+        <h2 className="h2-bold">Comece agora sua jornada</h2>
         <div className="flex w-full flex-col gap-5 md:flex-row">
           Search
           CategoryFilter
