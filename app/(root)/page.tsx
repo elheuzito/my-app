@@ -20,7 +20,7 @@ export default async function Home() {
         <div className="wrapper grid grid-cols-1 md:grid-cols-2 gap-5 2xl:gap-3">
           <div className="flex flex-col justify-center gap-8">
            <h1 className="h1-bold">
-           Organize e Participe: Sua plataforma de eventos, te mantendo atualizado e conectado.
+           Organize e Participe: Sua plataforma de eventos.
           </h1>
           <p className="p-regular-20 md:p-regular-24">
           Conecte-se e aprenda conosco aqui hospedamos e divulgamos seus eventos acadêmicos em poucos cliques.
