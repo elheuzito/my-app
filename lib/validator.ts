@@ -18,7 +18,7 @@ export const eventFormSchema = z.object({
     endDateTime: z.date(),
     categoryId: z.string(),
     //isFree: z.boolean(),
-    url: z.string().url()
+    url: z.string(),
   })
 
 type EventFormProps = {
