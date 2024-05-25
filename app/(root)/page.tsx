@@ -34,7 +34,7 @@ export default async function Home() {
               src="/assets/images/placehold.png"
               alt="hero"
               width={800}
-              height={1000}
+              height={1100}
               className="rounded max-h-[70vh] object-contain object-center 2xl:max-h-[50vh]"
             />
           </div>

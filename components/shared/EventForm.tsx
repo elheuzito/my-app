@@ -22,7 +22,8 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css"
 import { useRouter } from "next/navigation"
-import { createEvent } from "@/lib/actions/event.actions"
+import { createEvent, updateEvent } from "@/lib/actions/event.actions"
+import { IEvent } from "@/lib/mongodb/database/models/event.model"
 
 
 
@@ -34,14 +35,19 @@ const formSchema = z.object({
 
 type EventFormProps = {
   userId: string
-  type: "Create" | "Update"
+  type: "Create" | "Update",
+  event? : IEvent,
+  eventId?: string
 }
 
-const EventForm = ( {userId , type} : EventFormProps) => {
+const EventForm = ( {userId , type, event, eventId} : EventFormProps) => {
 
     const [files, setFiles] = useState<File[]>([]);
 
-    const initialValues = eventDefaultValues;
+    const initialValues = event && type === 'Update' ? {...event, 
+        startDateTime: new Date(event.startDateTime),
+        endDateTime: new Date(event.endDateTime),
+    } : eventDefaultValues;
     const router = useRouter()
 
     const { startUpload } = useUploadThing('imageUploader')
@@ -80,6 +86,27 @@ const EventForm = ( {userId , type} : EventFormProps) => {
                 console.log(error)
             }
         }
+        if(type === 'Update') {
+            if(!eventId) {
+              router.back()
+              return;
+            }
+      
+            try {
+              const updatedEvent = await updateEvent({
+                userId,
+                event: { ...values, imageUrl: uploadedImageUrl, _id: eventId, price: '0', isFree: true  },
+                path: `/events/${eventId}`
+              })
+      
+              if(updatedEvent) {
+                form.reset();
+                router.push(`/events/${updatedEvent._id}`)
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          }
         
       }
     return (
@@ -226,7 +253,7 @@ const EventForm = ( {userId , type} : EventFormProps) => {
           className="button col-span-2 w-full"
           >{form.formState.isSubmitting ? (
             'Enviando...'
-          ): `Criar Evento`}</Button>
+          ): `${type === 'Create' ? 'Criar' : 'Atualizar'} Evento`}</Button>
         </form>
       </Form>
   )
