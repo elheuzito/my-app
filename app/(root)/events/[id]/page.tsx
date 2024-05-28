@@ -4,11 +4,17 @@ import { getEventById } from '@/lib/actions/event.actions'
 import Image
  from 'next/image'
 import { formatDateTime } from '@/lib/utils'
+import CheckoutButton from '@/components/shared/CheckoutButton'
+import { auth } from '@clerk/nextjs/server'
 const EventDetails  = async ({ params: { id }}: SearchParamProps) => {
+
+    const { sessionClaims } = auth();
+    const userId = sessionClaims?.userId as string;
     // GET EVENT
     const event = await getEventById(id);
     //console.log(event);
-
+    console.log(userId);
+    console.log(event.organizer._id);
     return (
         <section className='flex justify-center bg-primary-50 bg-dotted-pattern bg-contain'>
                 <div className='grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl p-1'>
@@ -37,6 +43,9 @@ const EventDetails  = async ({ params: { id }}: SearchParamProps) => {
                             </div>
                         </div>
                     </div>
+                
+                {event.organizer._id === userId ? ' ' : <CheckoutButton event={event} />}
+
                 <div className='flex flex-col gap-5'>
                     <div className='flex gap-2 md:gap-3'>
                         <Image src="/assets/icons/calendar.svg" alt='calendar' width={32} height={32} />

@@ -8,6 +8,7 @@ const CreateEvent = () => {
     const { sessionClaims } = auth();
 
     const userId =  sessionClaims?.userId as string;
+    
   return (
     <>
     <section className="bg-cover bg-center py-5 md:py-5">

@@ -18,11 +18,11 @@ export default async function Home() {
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">
         <div className="wrapper grid grid-cols-1 md:grid-cols-2 gap-5 2xl:gap-3">
-          <div className="flex flex-col justify-center gap-8">
+          <div className="flex flex-col justify-center gap-8 px-1">
            <h1 className="h1-bold">
            Organize e Participe: Sua plataforma de eventos.
           </h1>
-          <p className="p-regular-20 md:p-regular-24">
+          <p className="p-regular-18 md:p-regular-20">
           Conecte-se e aprenda conosco aqui hospedamos e divulgamos seus eventos acadêmicos em poucos cliques.
          </p>
           <Button size="lg" asChild className="button w-full sm:w-fit">

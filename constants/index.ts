@@ -1,3 +1,5 @@
+import { routeModule } from "next/dist/build/templates/app-page"
+
 export const headerLinks = [
     {
         label: 'Home',

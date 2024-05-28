@@ -6,6 +6,7 @@ export type CreateUserParams = {
     username: string
     email: string
     photo: string
+    acess: boolean
   }
   
   export type UpdateUserParams = {
@@ -107,16 +108,13 @@ export type CreateUserParams = {
   export type CheckoutOrderParams = {
     eventTitle: string
     eventId: string
-    price: string
-    isFree: boolean
     buyerId: string
   }
   
   export type CreateOrderParams = {
-    stripeId: string
+    eventTitle: string
     eventId: string
     buyerId: string
-    totalAmount: string
     createdAt: Date
   }
   

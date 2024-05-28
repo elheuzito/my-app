@@ -18,7 +18,7 @@ const CollectionEvent = ({data, emptyStateSubtext, limit, page, totalPages = 0, 
             {data.map((event) => {
 
               return (
-                <li key={event._id} className="flex justify-center flex-col gap-2">
+                <li key={event._id} className="flex justify-center flex-col gap-2 mb-4">
                   <CardEvents event={event} />
                 </li>
               )
