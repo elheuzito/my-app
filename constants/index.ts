@@ -12,6 +12,10 @@ export const headerLinks = [
     {
         label: 'Meus eventos',
         route: '/myevents',
+    },
+    {
+        label: 'Perfil',
+        route: '/perfil',
     }
 ]
 

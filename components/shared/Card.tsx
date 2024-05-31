@@ -4,8 +4,10 @@ import { auth } from '@clerk/nextjs/server'
 import Image from 'next/image'
 import Link from 'next/link'
 import { format } from 'path'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { DeleteConfirmation } from './DeleteConfirmation'
+import { connectToDatabase } from '@/lib/mongodb/database'
+import { get } from 'http'
 
 
 type CardProps = {
@@ -19,6 +21,12 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
   const userId = sessionClaims?.userId as string;
 
   const isEventCreator = userId === event.organizer?._id.toString();
+
+  
+
+  
+
+  
 
   return (
     <div className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">

@@ -16,16 +16,20 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 
-import { deleteEvent } from '@/lib/actions/event.actions'
+import { deleteOrdersAndEvent, deleteOrdersByEvent } from '@/lib/actions/order.action'
 
-export const DeleteConfirmation = ({ eventId }: { eventId: string }) => {
+interface DeleteConfirmationProps {
+  eventId: string;
+}
+
+export const DeleteConfirmation = ({ eventId }: DeleteConfirmationProps) => {
   const pathname = usePathname()
-  let [isPending, startTransition] = useTransition()
+  const [isPending, startTransition] = useTransition()
 
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Image src="/assets/icons/delete.svg" alt="edit" width={20} height={20} />
+        <Image src="/assets/icons/delete.svg" alt="delete" width={20} height={20} />
       </AlertDialogTrigger>
 
       <AlertDialogContent className="bg-white">
@@ -42,7 +46,12 @@ export const DeleteConfirmation = ({ eventId }: { eventId: string }) => {
           <AlertDialogAction
             onClick={() =>
               startTransition(async () => {
-                await deleteEvent({ eventId, path: pathname })
+                const result = await deleteOrdersAndEvent(eventId, pathname)
+                if (result.success) {
+                  console.log('Event and its orders deleted successfully')
+                } else {
+                  console.error('Failed to delete event and its orders:', result)
+                }
               })
             }>
             {isPending ? 'Deleting...' : 'Delete'}

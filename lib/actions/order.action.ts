@@ -7,6 +7,8 @@ import { ObjectId } from "mongodb";
 import { handleError } from "../utils";
 import User from "../mongodb/database/models/user.model";
 import Event from "../mongodb/database/models/event.model";
+import mongoose from "mongoose";
+import { deleteEvent } from "./event.actions";
 
 export const createOrder = async (order: CreateOrderParams) => {
     try {
@@ -108,3 +110,46 @@ export async function getOrdersByEvent({ searchString, eventId }: GetOrdersByEve
       handleError(error)
     }
   }
+
+  // FUNÇÃO DE APAGAR
+
+  interface DeleteEventParams {
+    eventId: string;
+    path?: string;
+  }
+  export async function deleteOrdersByEvent(eventId: string, session: mongoose.ClientSession | null = null) {
+    try {
+      await connectToDatabase()
+      
+      const conditions = { event: eventId }
+      
+      const result = await Order.deleteMany(conditions).session(session)
+      
+      return { success: true, deletedCount: result.deletedCount }
+    } catch (error) {
+      handleError(error)
+      return { success: false}
+    }
+  }
+  
+export async function deleteOrdersAndEvent(eventId: string, path: string) {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  try {
+    const deleteOrdersResult = await deleteOrdersByEvent(eventId, session);
+    if (!deleteOrdersResult.success) {
+      throw new Error(`Failed to delete orders for event ${eventId}`);
+    }
+
+    const deleteEventResult = await deleteEvent(eventId, session);
+
+    await session.commitTransaction();
+    return { success: true };
+  } catch (error) {
+    await session.abortTransaction();
+    return { success: false };
+  } finally {
+    session.endSession();
+  }
+}

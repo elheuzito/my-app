@@ -16,6 +16,7 @@ import {
   GetEventsByUserParams,
   GetRelatedEventsByCategoryParams,
 } from '@/types'
+import mongoose from 'mongoose';
 
 const getCategoryByName = async (name: string) => {
   return Category.findOne({ name: { $regex: name, $options: 'i' } })
@@ -85,14 +86,14 @@ export async function updateEvent({ userId, event, path }: UpdateEventParams) {
 }
 
 // DELETE
-export async function deleteEvent({ eventId, path }: DeleteEventParams) {
+export async function deleteEvent(eventId: string, session: mongoose.ClientSession | null = null) {
   try {
-    await connectToDatabase()
-
-    const deletedEvent = await Event.findByIdAndDelete(eventId)
-    if (deletedEvent) revalidatePath(path)
+    const result = await Event.findByIdAndDelete(eventId).session(session)
+    
+    return { success: true, deleted: result }
   } catch (error) {
     handleError(error)
+    return { success: false}
   }
 }
 

@@ -56,7 +56,9 @@ export type CreateUserParams = {
     eventId: string
     path: string
   }
-  
+  export type DeleteOrderParams = {
+    orderId: string
+  }
   export type GetAllEventsParams = {
     query: string
     category: string

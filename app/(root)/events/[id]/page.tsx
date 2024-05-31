@@ -12,9 +12,17 @@ const EventDetails  = async ({ params: { id }}: SearchParamProps) => {
     const userId = sessionClaims?.userId as string;
     // GET EVENT
     const event = await getEventById(id);
+
+    if (!event) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <p>Evento não encontrado.</p>
+            </div>
+        );
+    }
+
     //console.log(event);
-    console.log(userId);
-    console.log(event.organizer._id);
+    
     return (
         <section className='flex justify-center bg-primary-50 bg-dotted-pattern bg-contain'>
                 <div className='grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl p-1'>
@@ -32,7 +40,7 @@ const EventDetails  = async ({ params: { id }}: SearchParamProps) => {
                             <div className='flex gap-3'>
                                 <p className='p-medium-16 rounded-full bg-green-500/10 px-5 py-2 text-green-700 '>{event.isFree ? 'Gratuito' : 'Gratuito'}</p>
                                 <p className='p-medium-16 rounded-full bg-grey-500/10 px-4 py-2.5 text-grey-500'>
-                                    {event.category.name}
+                                    {event.category?.name}
                                 </p>
                             </div>
                             <div className='flex gap-3'>
