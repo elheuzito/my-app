@@ -8,7 +8,20 @@ const UserSchema = new Schema({
   lastName: { type: String, required: true },
   photo: { type: String, required: true },
   access: { type: Boolean, default: false },
+  sobre: { type: String , default: '' },
 });
+
+export interface IUser extends Document {
+  _id: string;
+  clerkId: string;
+  email: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  photo: string;
+  access: boolean;
+  sobre: string;
+}
 
 const User = models.User || model('User', UserSchema);
 

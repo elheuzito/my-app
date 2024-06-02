@@ -4,6 +4,18 @@ import { Separator } from '@/components/ui/separator';
 import { getUserById } from '@/lib/actions/user.actions';
 import { auth } from '@clerk/nextjs/server';
 import React from 'react'
+import {
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+  } from "@/components/ui/sheet"
+import { User } from 'lucide-react';
+import UserForm from '@/components/shared/UserForm';
 
 export default async function Perfil() {
 
@@ -33,7 +45,31 @@ export default async function Perfil() {
                         <h1 className='text-xl font-bold text-gray-700'>{capitalizeFirstLetter(user.firstName)} {capitalizeFirstLetter(user.lastName)}</h1>
                         <p className='text-gray-500 dark:text-gray-400 text-sm'>{user.email}</p>
                     </div>
-                    <Button variant="outline" size="sm">Atualizar</Button>
+                    <Sheet>
+                        <div className='flex background-color-grey-50'>
+                        <SheetTrigger asChild>
+                            <Button variant="outline">Atualizar Perfil</Button>
+                        </SheetTrigger>
+                        <SheetContent className='bg-white p-5 shadow-lg rounded-lg'>
+                            <SheetHeader>
+                            <SheetTitle>Editar Perfil</SheetTitle>
+                            <SheetDescription>
+                                Personalize seu perfil de acordo com suas necessidades.
+                            </SheetDescription>
+                            </SheetHeader>
+                
+                                <div className="grid gap-4 py-4">
+                                    <UserForm user={user} userId={userId} />
+                                </div>
+                            <SheetFooter>
+
+                            <SheetClose asChild>
+                                <Button className='rounded' type="submit">x</Button>
+                            </SheetClose>
+                            </SheetFooter>
+                        </SheetContent>
+                        </div>
+                        </Sheet>
                 </div>
                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
                     <div className='space-y-1'>
@@ -60,9 +96,7 @@ export default async function Perfil() {
                             Sobre
                         </h2>
                         <p className='text-gray-500 dark:text-gray-400 text:sm'>
-                            Estudante de ADS, apaixonado por tecnologia e programação.
-                            Estou sempre em busca de novos desafios e oportunidades.
-                            Gosto de trabalhar em equipe e ter responsabilidade.
+                            {user.sobre}
                         </p>
                     </div>
                 </div>

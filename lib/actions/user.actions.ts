@@ -24,18 +24,18 @@ export const createUser = async (user: CreateUserParams) => {
     }
 }
 
-export async function updateUser(clerkId: string, user: UpdateUserParams) {
-    try {
-      await connectToDatabase()
-  
-      const updatedUser = await User.findOneAndUpdate({ clerkId }, user, { new: true })
-  
-      if (!updatedUser) throw new Error('User update failed')
-      return JSON.parse(JSON.stringify(updatedUser))
-    } catch (error) {
-      handleError(error)
-    }
+export async function updateUser(userId: string, user: UpdateUserParams) {
+  try {
+      await connectToDatabase();
+
+      const updatedUser = await User.findOneAndUpdate({ _id: userId }, user, { new: true });
+
+      if (!updatedUser) throw new Error('User update failed');
+      return JSON.parse(JSON.stringify(updatedUser));
+  } catch (error) {
+      handleError(error);
   }
+}
   
   export async function deleteUser(clerkId: string) {
     try {

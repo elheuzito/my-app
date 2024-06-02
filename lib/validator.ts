@@ -21,6 +21,21 @@ export const eventFormSchema = z.object({
     url: z.string(),
   })
 
+export const userFormSchema = z.object({
+    firstName: z.string().min(3, {
+      message: "Nome deve ter pelo menos 3 caracteres.",
+    }),
+    lastName: z.string().min(3,
+      {
+        message: "Sobrenome deve ter pelo menos 3 caracteres"
+      }
+    ),
+    email: z.string().min(3, {
+      message: "Email deve ter pelo menos 3 caracteres",
+    })
+  })
+
+
 type EventFormProps = {
   userId: string
   type: "Create" | "Update"
