@@ -25,6 +25,27 @@ export const createOrder = async (order: CreateOrderParams) => {
     }
 }
 
+export async function getOrderById(orderId: string) {
+  try {
+    await connectToDatabase();
+
+    if (!orderId) throw new Error('Order ID is required');
+
+    if (!mongoose.Types.ObjectId.isValid(orderId)) {
+      throw new Error('Invalid Order ID');
+    }
+
+    const objectId = new mongoose.Types.ObjectId(orderId);
+    const order = await Order.findOne({ _id: objectId }).sort({ createdAt: 'desc' });
+
+    if (!order) throw new Error('Order not found');
+    
+    return { data: JSON.parse(JSON.stringify(order)) };
+  } catch (error) {
+    handleError(error);
+  }
+}
+
 export async function getOrdersByEvent({ searchString, eventId }: GetOrdersByEventParams) {
     try {
       await connectToDatabase()

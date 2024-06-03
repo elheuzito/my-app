@@ -46,13 +46,13 @@ const EventDetails  = async ({ params: { id }}: SearchParamProps) => {
                             <div className='flex gap-3'>
                                 <p className='p-medium-14 ml-2 mt-2 sm:mt-0'>
                                     Por: {' '}
-                                    <span className='text-primary-500'>{event.organizer.firstName} {event.organizer.lastName}</span>
+                                    <span className='text-primary-500'>{event.organizer?.firstName} {event.organizer?.lastName}</span>
                                 </p>
                             </div>
                         </div>
                     </div>
                 
-                {event.organizer._id === userId ? ' ' : <CheckoutButton event={event} />}
+                {event.organizer?._id === userId ? ' ' : <CheckoutButton event={event} />}
 
                 <div className='flex flex-col gap-5'>
                     <div className='flex gap-2 md:gap-3'>

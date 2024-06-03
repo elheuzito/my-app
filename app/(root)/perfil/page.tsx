@@ -25,7 +25,7 @@ export default async function Perfil() {
 
   const user = await getUserById(userId);
 
-  console.log(user)
+  //console.log(user)
 
   const capitalizeFirstLetter = (string: string): string => string.charAt(0).toUpperCase() + string.slice(1);
 

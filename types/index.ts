@@ -131,6 +131,10 @@ export type CreateUserParams = {
     limit?: number
     page: string | number | null
   }
+
+  export type GetOrderById = {
+    orderId: string
+  }
   
   // ====== URL QUERY PARAMS
   export type UrlQueryParams = {
