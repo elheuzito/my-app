@@ -119,6 +119,7 @@ export type CreateUserParams = {
     eventId: string
     buyerId: string
     createdAt: Date
+    present: boolean
   }
   
   export type GetOrdersByEventParams = {

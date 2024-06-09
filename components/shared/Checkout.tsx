@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '../ui/button';
-import { createOrder } from '@/lib/actions/order.action'; // ajuste isso de acordo com sua importação real
+import { createOrder } from '@/lib/actions/order.action';
 import { IEvent } from '@/lib/mongodb/database/models/event.model';
 import { useRouter } from 'next/navigation';
 
@@ -18,7 +18,8 @@ const Checkout = ({ event, userId }: { event: IEvent, userId: string }) => {
             eventTitle: event.title,
             eventId: event._id,
             buyerId: userId,
-            createdAt: new Date()
+            createdAt: new Date(),
+            present: true
         };
 
         await createOrder(order);

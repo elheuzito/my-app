@@ -1,16 +1,21 @@
 import { Schema, model, models, Document } from 'mongoose'
 
 export interface IOrder extends Document {
-  createdAt: Date
+  _id: string
+  eventTitle: string
+  description: string
   event: {
     _id: string
     title: string
+    imageUrl: string
+    location: string
   }
   buyer: {
     _id: string
     firstName: string
     lastName: string
   }
+  present: boolean
 }
 
 export type IOrderItem = {
@@ -19,6 +24,7 @@ export type IOrderItem = {
   eventTitle: string
   eventId: string
   buyer: string
+  present: boolean
 }
 
 const OrderSchema = new Schema({
@@ -38,6 +44,11 @@ const OrderSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  present:{
+    type: Boolean,
+    required: true,
+    default: true
+  }
 })
 
 const Order = models.Order || model('Order', OrderSchema)

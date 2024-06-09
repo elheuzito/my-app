@@ -19,6 +19,7 @@ import { getUserById } from '@/lib/actions/user.actions';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
 import mongoose from 'mongoose';
+import Link from 'next/link';
 
 const Pedido  = async ({ params: { id }}: SearchParamProps) => {
 
@@ -26,7 +27,7 @@ const Pedido  = async ({ params: { id }}: SearchParamProps) => {
 
     const { sessionClaims } = auth();
     const userId = sessionClaims?.userId as string;
-
+    
     
     
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -57,11 +58,8 @@ const Pedido  = async ({ params: { id }}: SearchParamProps) => {
         <div className="flex flex-col min-h-screen">
             <header className="bg-gray-100 dark:bg-gray-800 px-2 md:px-6 py-4 flex items-center justify-between border-b rounded">
                 <div className="flex items-center gap-4">
-                <Button variant="outline" size="icon">
-                <ArrowLeftIcon className="h-4 w-4" />
-                <span className="pl-2 sr-only">Voltar</span>
-                </Button>
-                <div className='flex flex-col gap-1'>
+
+                <div className='pl-4 flex flex-col gap-1'>
                 <h1 className="flex-col font-semibold text-lg md:text-xl">Inscrição # {order.data._id}</h1>
                 <p className='flex-col font-regular text-lg md:text-sm text-grey-500'> Registrado no dia {formatDateTime(order.data.createdAt).dateTime}</p>
                 </div>
@@ -71,7 +69,7 @@ const Pedido  = async ({ params: { id }}: SearchParamProps) => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card>
                 <CardHeader>
-                <CardTitle>Detalhes da Usuario </CardTitle>
+                <CardTitle>Detalhes do Usuario </CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="flex flex-row h-24 gap-4">
@@ -153,7 +151,9 @@ const Pedido  = async ({ params: { id }}: SearchParamProps) => {
             
                         </div>
                         <div className='-mb-2 flex place-items-end'>
+                            <Link href={`/certificado/${id}`}>
                             <button className='self-end bg-blue-500 text-white py-2 px-4 rounded mt-auto'>Gerar Certificado</button>
+                            </Link>
                         </div>
                     </div>
                 </CardContent>

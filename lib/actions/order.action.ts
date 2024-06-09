@@ -18,7 +18,7 @@ export const createOrder = async (order: CreateOrderParams) => {
             event: order.eventId,
             buyer: order.buyerId,
         });
-
+        
         return JSON.parse(JSON.stringify(newOrder));
     } catch (error) {
         throw error;
@@ -153,6 +153,21 @@ export async function getOrdersByEvent({ searchString, eventId }: GetOrdersByEve
     }
   }
   
+  export async function deleteOrderById(orderId: string, session: mongoose.ClientSession | null = null) {
+    try {
+      await connectToDatabase();
+      
+      const conditions = { _id: orderId };
+      
+      const result = await Order.deleteOne(conditions).session(session);
+      
+      return { success: true, deletedCount: result.deletedCount };
+    } catch (error) {
+      handleError(error);
+      return { success: false };
+    }
+  }
+
 export async function deleteOrdersAndEvent(eventId: string, path: string) {
   const session = await mongoose.startSession();
   session.startTransaction();

@@ -62,10 +62,9 @@ export default async function Perfil() {
                                     <UserForm user={user} userId={userId} />
                                 </div>
                             <SheetFooter>
-
-                            <SheetClose asChild>
-                                <Button className='rounded' type="submit">x</Button>
-                            </SheetClose>
+                                <div>
+                                    
+                                </div>
                             </SheetFooter>
                         </SheetContent>
                         </div>

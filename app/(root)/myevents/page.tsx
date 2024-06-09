@@ -1,4 +1,5 @@
 import Collection from '@/components/shared/Collection'
+import CollectionOrder from '@/components/shared/CollectionOrder'
 import { Button } from '@/components/ui/button'
 import { getEventsByUser } from '@/lib/actions/event.actions'
 import { getOrdersByUser } from '@/lib/actions/order.action'
@@ -18,12 +19,11 @@ const MyEvents = async ({ searchParams }: SearchParamProps) => {
 
   const orders = await getOrdersByUser({ userId, page: ordersPage})
 
-  const orderedEvents = orders?.data.map((order: IOrder) => order.event) || [];
+  const orderedEvents = orders?.data.map((order: IOrder) => order) || [];
   const organizedEvents = await getEventsByUser({ userId, page: eventsPage })
 
   return (
     <>
-      
       <section className="bg-cover bg-center py-3 md:py-5 ">
         <div className="wrapper flex items-center justify-center sm:justify-between">
           <h3 className='h3-bold text-center sm:text-left'>Minhas inscrições</h3>
@@ -36,11 +36,9 @@ const MyEvents = async ({ searchParams }: SearchParamProps) => {
       </section>
 
       <section className="wrapper my-1">
-        <Collection 
+        <CollectionOrder 
           data={orderedEvents}
-          emptyTitle="Nenhuma inscrição encontrada"
           emptyStateSubtext="Não há inscrições para exibir"
-          collectionType="My_Tickets"
           limit={3}
           page={ordersPage}
           urlParamName="ordersPage"

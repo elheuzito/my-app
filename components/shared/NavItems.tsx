@@ -12,7 +12,7 @@ const NavItems = () => {
       {headerLinks.map((link) => {
         const isActive = pathname === link.route;
         return (
-          <li key={link.route} className={`${isActive ? 'text-primary-500' : ''} p-medium-14 whitespace-nowrap hover:text-primary-500`}>
+          <li key={link.route} className={`${isActive ? 'text-primary-500' : ''} p-medium-14 whitespace-nowrap hover:underline underline-offset-4`}>
             <Link href={link.route}>{link.label}</Link>
           </li>
         );
