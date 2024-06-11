@@ -22,12 +22,28 @@ export default async function Perfil() {
   const { sessionClaims } = auth();
 
   const userId = sessionClaims?.userId as string;
+  
+  if(!userId) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p>Usuário não encontrado.</p>
+      </div>
+    );
+  }
 
   const user = await getUserById(userId);
 
   //console.log(user)
 
   const capitalizeFirstLetter = (string: string): string => string.charAt(0).toUpperCase() + string.slice(1);
+
+  if(!user) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p>Usuário não encontrado.</p>
+      </div>
+    );
+  }
 
   return (
     <>

@@ -3,6 +3,8 @@ import { getOrdersByEvent } from '@/lib/actions/order.action'
 import { SearchParamProps } from '@/types'
 import { IOrderItem } from '@/lib/mongodb/database/models/order.model'
 import { formatDateTime } from '@/lib/utils'
+import { ApagarOrdem } from '@/components/shared/ApagarOrdem'
+import { Checkbox } from '@/components/ui/checkbox'
 
 const Orders = async ({ searchParams }: SearchParamProps) => {
   const eventId = (searchParams?.eventId as string) || ''
@@ -28,6 +30,7 @@ const Orders = async ({ searchParams }: SearchParamProps) => {
               <th className="min-w-[200px] flex-1 py-3 pr-4 text-left">Evento Titulo</th>
               <th className="min-w-[150px] py-3 text-left">Inscrito</th>
               <th className="min-w-[100px] py-3 text-left">Criado</th>
+              <th className="min-w-[100px] py-3 text-left">Presença</th>
               <th className="min-w-[100px] py-3 text-left">Ações</th>
             </tr>
           </thead>
@@ -45,12 +48,23 @@ const Orders = async ({ searchParams }: SearchParamProps) => {
                     <tr
                       key={row._id}
                       className="p-regular-14 lg:p-regular-16 border-b "
-                      style={{ boxSizing: 'border-box' }}>
-                      <td className="min-w-[250px] py-4 text-primary-500">{row._id}</td>
-                      <td className="min-w-[200px] flex-1 py-4 pr-4">{row.eventTitle}</td>
+                      style={{ boxSizing: "border-box" }}
+                    >
+                      <td className="min-w-[250px] py-4 text-primary-500">
+                        {row._id}
+                      </td>
+                      <td className="min-w-[200px] flex-1 py-4 pr-4">
+                        {row.eventTitle}
+                      </td>
                       <td className="min-w-[150px] py-4">{row.buyer}</td>
                       <td className="min-w-[100px] py-4">
                         {formatDateTime(row.createdAt).dateTime}
+                      </td>
+                      <td className="min-w-[100px] py-6 pl-4">
+                        <Checkbox defaultChecked={true}> </Checkbox>
+                      </td>
+                      <td className="min-w-[100px] py-4">
+                        <ApagarOrdem orderId={row._id} />
                       </td>
                     </tr>
                   ))}

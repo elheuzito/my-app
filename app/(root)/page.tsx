@@ -1,6 +1,7 @@
 import Collection from "@/components/shared/Collection";
 import { Button } from "@/components/ui/button";
 import { getAllEvents } from "@/lib/actions/event.actions";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,7 +13,12 @@ export default async function Home() {
     page: 1,
     limit: 6,
   });
+
+  const { sessionClaims } = auth();
+
+  const userId = sessionClaims?.userId as string;
  
+  console.log(userId);
 
   return (
     <>
